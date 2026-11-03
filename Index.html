@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>📚 IbepShop – Votre Bibliothèque Digitale Premium</title>
+  <meta name="description" content="Ebooks premium : business, santé, agriculture, cuisine béninoise, revenus en ligne. Téléchargement instantané !"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --gold: #f0c040;
+      --dark: #0a0a1a;
+      --darker: #050510;
+      --accent: #7c3aed;
+      --accent2: #06b6d4;
+      --card-bg: #12122a;
+      --text: #e8e8f0;
+      --muted: #8888aa;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--darker);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ======== NAVIGATION ======== */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      background: rgba(5,5,16,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(240,192,64,0.2);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 5%;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+      transition: background 0.3s;
+    }
+    .logo {
+      font-size: 1.6rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--gold), #ff8c00);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px; text-decoration: none;
+    }
+    .logo span { -webkit-text-fill-color: var(--accent2); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--text); text-decoration: none; font-weight: 500;
+      font-size: 0.9rem; letter-spacing: 0.5px; transition: color 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px; background: var(--gold); transition: width 0.3s;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: white !important; padding: 0.5rem 1.5rem;
+      border-radius: 50px; font-weight: 700;
+      box-shadow: 0 4px 15px rgba(124,58,237,0.4);
+      transition: transform 0.2s, box-shadow 0.2s !important;
+    }
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(124,58,237,0.6) !important;
+    }
+    .hamburger { display: none; font-size: 1.5rem; cursor: pointer; color: var(--gold); }
+
+    /* ======== HERO ======== */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a1a2e 100%);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 8rem 5% 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(ellipse at center, rgba(124,58,237,0.15) 0%, transparent 70%);
+      animation: pulse 6s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+    .particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+    .particle {
+      position: absolute; border-radius: 50%; background: var(--gold);
+      animation: floatUp linear infinite; opacity: 0;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 0.5; }
+      100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 900px; }
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(240,192,64,0.2), rgba(255,140,0,0.2));
+      border: 1px solid rgba(240,192,64,0.4);
+      color: var(--gold); padding: 0.4rem 1.2rem;
+      border-radius: 50px; font-size: 0.85rem; font-weight: 600;
+      margin-bottom: 1.5rem; letter-spacing: 1px;
+      animation: fadeInDown 0.8s ease;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 4.5rem); font-weight: 900;
+      line-height: 1.1; margin-bottom: 1.5rem;
+      animation: fadeInUp 0.8s ease 0.2s both;
+    }
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--gold), #ff8c00, var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem); color: var(--muted);
+      max-width: 700px; margin: 0 auto 2.5rem; line-height: 1.8;
+      animation: fadeInUp 0.8s ease 0.4s both;
+    }
+    .hero-buttons {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeInUp 0.8s ease 0.6s both;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), #ff8c00);
+      color: #0a0a1a; padding: 1rem 2.5rem; border: none;
+      border-radius: 50px; font-size: 1.05rem; font-weight: 800;
+      cursor: pointer; text-decoration: none;
+      box-shadow: 0 8px 30px rgba(240,192,64,0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(240,192,64,0.6);
+    }
+    .btn-secondary {
+      background: transparent; color: var(--text);
+      padding: 1rem 2.5rem;
+      border: 2px solid rgba(255,255,255,0.2); border-radius: 50px;
+      font-size: 1.05rem; font-weight: 600; cursor: pointer;
+      text-decoration: none; transition: all 0.3s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-secondary:hover {
+      border-color: var(--accent2); color: var(--accent2);
+      background: rgba(6,182,212,0.1);
+    }
+    .hero-stats {
+      display: flex; gap: 3rem; justify-content: center;
+      flex-wrap: wrap; margin-top: 4rem;
+      animation: fadeInUp 0.8s ease 0.8s both;
+    }
+    .stat { text-align: center; }
+    .stat-number {
+      font-size: 2.2rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--gold), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .stat-label { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+
+    /* ======== TICKER ======== */
+    .ticker-wrapper {
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      padding: 0.8rem 0; overflow: hidden;
+    }
+    .ticker { display: flex; gap: 3rem; animation: ticker 30s linear infinite; white-space: nowrap; }
+    .ticker-item { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ======== SECTIONS ======== */
+    section { padding: 6rem 5%; }
+    .section-title { text-align: center; margin-bottom: 1rem; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; }
+    .section-title .accent { color: var(--gold); }
+    .section-subtitle {
+      text-align: center; color: var(--muted); margin-bottom: 3.5rem;
+      font-size: 1.05rem; max-width: 650px; margin-left: auto; margin-right: auto;
+    }
+    .section-line {
+      width: 80px; height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--accent2));
+      margin: 1rem auto 1.5rem; border-radius: 2px;
+    }
+
+    /* ======== CATÉGORIES ======== */
+    #categories { background: var(--dark); }
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .cat-card {
+      position: relative; border-radius: 20px; overflow: hidden;
+      height: 240px; cursor: pointer; text-decoration: none;
+      transition: transform 0.4s, box-shadow 0.4s;
+    }
+    .cat-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+    .cat-bg { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+    .cat-card:hover .cat-bg { transform: scale(1.1); }
+    .cat-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem;
+    }
+    .cat-icon { font-size: 2.2rem; margin-bottom: 0.4rem; }
+    .cat-title { font-size: 1.2rem; font-weight: 800; color: white; }
+    .cat-count { font-size: 0.82rem; color: var(--gold); margin-top: 0.2rem; }
+    .cat-arrow {
+      position: absolute; top: 1rem; right: 1rem;
+      background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
+      width: 35px; height: 35px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white; transition: background 0.3s;
+    }
+    .cat-card:hover .cat-arrow { background: var(--gold); color: #000; }
+
+    /* ======== LIVRES ======== */
+    #books { background: var(--darker); }
+    .filter-tabs {
+      display: flex; gap: 0.8rem; flex-wrap: wrap;
+      justify-content: center; margin-bottom: 3rem;
+    }
+    .filter-tab {
+      padding: 0.5rem 1.4rem; border-radius: 50px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted); font-size: 0.88rem; cursor: pointer;
+      transition: all 0.3s; font-family: 'Poppins', sans-serif;
+    }
+    .filter-tab.active, .filter-tab:hover {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: white; border-color: transparent;
+    }
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .book-card {
+      background: var(--card-bg); border-radius: 20px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform 0.4s, box-shadow 0.4s, border-color 0.3s;
+      position: relative; display: flex; flex-direction: column;
+    }
+    .book-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+      border-color: rgba(240,192,64,0.3);
+    }
+    .book-badge {
+      position: absolute; top: 12px; left: 12px; z-index: 2;
+      color: white; padding: 0.25rem 0.8rem;
+      border-radius: 50px; font-size: 0.72rem; font-weight: 700;
+    }
+    .badge-promo { background: linear-gradient(135deg, #ff4444, #ff8800); }
+    .badge-new  { background: linear-gradient(135deg, #7c3aed, #06b6d4); }
+    .badge-hot  { background: linear-gradient(135deg, #f97316, #ef4444); }
+    .book-img-wrap { height: 210px; overflow: hidden; position: relative; flex-shrink: 0; }
+    .book-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .book-card:hover .book-img-wrap img { transform: scale(1.08); }
+    .book-overlay {
+      position: absolute; inset: 0; background: rgba(0,0,0,0.65);
+      opacity: 0; display: flex; align-items: center; justify-content: center;
+      gap: 0.8rem; transition: opacity 0.3s; flex-direction: column;
+    }
+    .book-card:hover .book-overlay { opacity: 1; }
+    .overlay-btn {
+      padding: 0.5rem 1.2rem; border-radius: 50px;
+      font-weight: 700; font-size: 0.82rem;
+      cursor: pointer; border: none; font-family: 'Poppins', sans-serif;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;
+      transition: transform 0.2s;
+    }
+    .overlay-btn:hover { transform: scale(1.05); }
+    .overlay-btn-white { background: white; color: #000; }
+    .overlay-btn-gold {
+      background: linear-gradient(135deg, var(--gold), #ff8c00);
+      color: #000;
+    }
+    .book-info { padding: 1.3rem; flex: 1; display: flex; flex-direction: column; }
+    .book-category { font-size: 0.72rem; color: var(--accent2); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+    .book-title { font-size: 0.92rem; font-weight: 700; margin: 0.4rem 0 0.5rem; line-height: 1.45; flex: 1; }
+    .book-stars { color: var(--gold); font-size: 0.82rem; }
+    .book-reviews { font-size: 0.72rem; color: var(--muted); }
+    .book-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 1rem; flex-wrap: wrap; gap: 0.5rem;
+    }
+    .price-block {}
+    .book-price-old { font-size: 0.78rem; color: var(--muted); text-decoration: line-through; }
+    .book-price {
+      font-size: 1.4rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--gold), #ff8c00);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      line-height: 1;
+    }
+    .discount-tag {
+      background: #ff4444; color: white;
+      font-size: 0.7rem; font-weight: 700;
+      padding: 0.15rem 0.5rem; border-radius: 4px;
+      display: inline-block; margin-left: 0.3rem;
+    }
+    .btn-acheter {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: white; border: none; padding: 0.65rem 1.2rem;
+      border-radius: 50px; font-size: 0.82rem; font-weight: 700;
+      cursor: pointer; display: inline-flex; align-items: center; gap: 0.4rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-family: 'Poppins', sans-serif; text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn-acheter:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(124,58,237,0.5); }
+
+    /* ======== OFFRE SPÉCIALE ======== */
+    .special-offer {
+      background: linear-gradient(135deg, #1a0a2e, #0a1a2e);
+      margin: 0 5%; border-radius: 30px; padding: 4rem;
+      text-align: center; border: 1px solid rgba(240,192,64,0.2);
+      position: relative; overflow: hidden;
+    }
+    .special-offer::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(124,58,237,0.2), transparent 70%);
+    }
+    .offer-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff4444, #ff8800);
+      color: white; padding: 0.4rem 1.5rem;
+      border-radius: 50px; font-size: 0.9rem; font-weight: 700;
+      margin-bottom: 1.5rem; animation: bounce 1s ease-in-out infinite;
+    }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+    .countdown { display: flex; gap: 1.5rem; justify-content: center; margin: 2rem 0; flex-wrap: wrap; }
+    .countdown-unit {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(240,192,64,0.3);
+      border-radius: 15px; padding: 1rem 1.5rem; text-align: center; min-width: 80px;
+    }
+    .countdown-number { font-size: 2.5rem; font-weight: 900; color: var(--gold); display: block; line-height: 1; }
+    .countdown-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+
+    /* ======== TÉMOIGNAGES ======== */
+    #avis { background: var(--dark); }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.5rem;
+    }
+    .review-card {
+      background: var(--card-bg); border-radius: 20px; padding: 2rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .review-card:hover { transform: translateY(-5px); border-color: rgba(240,192,64,0.3); }
+    .review-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; }
+    .reviewer-avatar { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 3px solid var(--gold); }
+    .reviewer-name { font-weight: 700; font-size: 1rem; }
+    .reviewer-tag { font-size: 0.75rem; color: var(--accent2); }
+    .review-stars { color: var(--gold); margin-bottom: 0.8rem; font-size: 1rem; }
+    .review-text { color: var(--muted); line-height: 1.8; font-size: 0.92rem; font-style: italic; }
+    .review-book { margin-top: 1rem; font-size: 0.78rem; color: var(--gold); font-weight: 600; }
+    .verified { display: inline-flex; align-items: center; gap: 0.3rem; color: #22c55e; font-size: 0.75rem; margin-top: 0.5rem; }
+
+    /* ======== POURQUOI NOUS ======== */
+    #why { background: var(--darker); }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+    }
+    .why-card {
+      background: var(--card-bg); border-radius: 20px; padding: 2.5rem 2rem;
+      text-align: center; border: 1px solid rgba(255,255,255,0.06);
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .why-card:hover { transform: translateY(-5px); border-color: rgba(240,192,64,0.2); }
+    .why-icon {
+      width: 70px; height: 70px; border-radius: 20px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; margin: 0 auto 1.5rem;
+      box-shadow: 0 10px 30px rgba(124,58,237,0.3);
+    }
+    .why-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.8rem; }
+    .why-text { color: var(--muted); line-height: 1.8; font-size: 0.88rem; }
+
+    /* ======== NEWSLETTER ======== */
+    .newsletter {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      padding: 5rem 5%; text-align: center;
+    }
+    .newsletter h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 900; margin-bottom: 1rem; }
+    .newsletter p { opacity: 0.85; margin-bottom: 2rem; font-size: 1rem; }
+    .newsletter-form {
+      display: flex; max-width: 500px; margin: 0 auto;
+      border-radius: 50px; overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    }
+    .newsletter-form input {
+      flex: 1; padding: 1rem 1.5rem; border: none;
+      background: white; font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem; outline: none;
+    }
+    .newsletter-form button {
+      padding: 1rem 1.8rem; background: #0a0a1a;
+      color: white; border: none; font-weight: 700;
+      cursor: pointer; font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem; transition: background 0.3s; white-space: nowrap;
+    }
+    .newsletter-form button:hover { background: #1a1a3a; }
+
+    /* ======== FOOTER ======== */
+    footer {
+      background: #030308; padding: 4rem 5% 2rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 3rem;
+    }
+    .footer-brand .logo { font-size: 1.8rem; display: block; margin-bottom: 1rem; }
+    .footer-brand p { color: var(--muted); line-height: 1.8; font-size: 0.88rem; }
+    .footer-socials { display: flex; gap: 1rem; margin-top: 1.5rem; }
+    .social-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 1rem; text-decoration: none;
+      transition: all 0.3s;
+    }
+    .social-btn:hover { background: var(--gold); color: #000; transform: translateY(-3px); }
+    .footer-col h4 { font-weight: 700; margin-bottom: 1.5rem; color: white; font-size: 1rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.8rem; }
+    .footer-col ul li a { color: var(--muted); text-decoration: none; font-size: 0.88rem; transition: color 0.3s; }
+    .footer-col ul li a:hover { color: var(--gold); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 2rem; text-align: center;
+      color: var(--muted); font-size: 0.82rem;
+    }
+    .footer-bottom a { color: var(--gold); text-decoration: none; }
+
+    /* ======== ANIMATIONS ======== */
+    @keyframes fadeInDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeInUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ======== TOAST ======== */
+    .toast {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 9999;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: white; padding: 1rem 2rem; border-radius: 15px; font-weight: 600;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      transform: translateX(200px); opacity: 0; transition: all 0.4s;
+      max-width: 280px;
+    }
+    .toast.show { transform: translateX(0); opacity: 1; }
+
+    /* ======== BACK TO TOP ======== */
+    .back-top {
+      position: fixed; bottom: 2rem; left: 2rem; z-index: 9999;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), #ff8c00);
+      color: #000; border: none;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; cursor: pointer;
+      box-shadow: 0 5px 20px rgba(240,192,64,0.4);
+      opacity: 0; transition: all 0.3s; transform: translateY(10px);
+    }
+    .back-top.visible { opacity: 1; transform: translateY(0); }
+
+    /* ======== RESPONSIVE ======== */
+    @media (max-width: 1024px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none; flex-direction: column;
+        position: fixed; top: 70px; left: 0; width: 100%;
+        background: rgba(5,5,16,0.98);
+        padding: 2rem; gap: 1.5rem; z-index: 999;
+      }
+      .nav-links.open { display: flex; }
+      .hamburger { display: block; }
+      .hero-stats { gap: 1.5rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .special-offer { margin: 0; border-radius: 0; padding: 3rem 1.5rem; }
+      .countdown { gap: 0.8rem; }
+      section { padding: 4rem 4%; }
+      .books-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+    }
+    @media (max-width: 480px) {
+      .books-grid { grid-template-columns: 1fr; }
+      .categories-grid { grid-template-columns: 1fr; }
+      .newsletter-form { flex-direction: column; border-radius: 15px; }
+      .newsletter-form input, .newsletter-form button { border-radius: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ======== NAVIGATION ======== -->
+<nav id="navbar">
+  <a href="#accueil" class="logo">📚 Ibep<span>Shop</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#accueil">Accueil</a></li>
+    <li><a href="#categories">Catégories</a></li>
+    <li><a href="#books">Livres</a></li>
+    <li><a href="#avis">Avis</a></li>
+    <li><a href="#why">Pourquoi nous</a></li>
+    <li><a href="https://ibepyuaz.mychariow.shop/" target="_blank" class="nav-cta">🛒 Boutique</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+</nav>
+
+<!-- ======== HERO ======== -->
+<section class="hero" id="accueil">
+  <div class="particles" id="particles"></div>
+  <div class="hero-content">
+    <div class="hero-badge">⚡ Téléchargement instantané • 100% Digital • Paiement sécurisé</div>
+    <h1>Des Guides Qui <br><span class="highlight">Changent Votre Vie</span></h1>
+    <p>Business, santé, agriculture, cuisine béninoise, revenus en ligne… Accédez à des guides pratiques, concrets et immédiatement applicables. Votre succès commence ici.</p>
+    <div class="hero-buttons">
+      <a href="#books" class="btn-primary"><i class="fas fa-book-open"></i> Voir les Guides</a>
+      <a href="https://ibepyuaz.mychariow.shop/" target="_blank" class="btn-secondary"><i class="fas fa-store"></i> Boutique Officielle</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-number" id="count1">0</div>
+        <div class="stat-label">Guides Disponibles</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" id="count2">0</div>
+        <div class="stat-label">Clients Satisfaits</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" id="count3">0</div>
+        <div class="stat-label">Catégories</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" id="count4">0</div>
+        <div class="stat-label">Note Moyenne ★</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== TICKER ======== -->
+<div class="ticker-wrapper">
+  <div class="ticker">
+    <span class="ticker-item"><i class="fas fa-bolt"></i> Téléchargement Instantané</span>
+    <span class="ticker-item"><i class="fas fa-lock"></i> Paiement 100% Sécurisé</span>
+    <span class="ticker-item"><i class="fas fa-star"></i> +500 Clients Satisfaits</span>
+    <span class="ticker-item"><i class="fas fa-headset"></i> Support 7j/7</span>
+    <span class="ticker-item"><i class="fas fa-gift"></i> Jusqu'à -55% de Réduction</span>
+    <span class="ticker-item"><i class="fas fa-globe-africa"></i> Guides 100% Pratiques</span>
+    <span class="ticker-item"><i class="fas fa-check-circle"></i> Résultats Dès le 1er Jour</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="ticker-item"><i class="fas fa-bolt"></i> Téléchargement Instantané</span>
+    <span class="ticker-item"><i class="fas fa-lock"></i> Paiement 100% Sécurisé</span>
+    <span class="ticker-item"><i class="fas fa-star"></i> +500 Clients Satisfaits</span>
+    <span class="ticker-item"><i class="fas fa-headset"></i> Support 7j/7</span>
+    <span class="ticker-item"><i class="fas fa-gift"></i> Jusqu'à -55% de Réduction</span>
+    <span class="ticker-item"><i class="fas fa-globe-africa"></i> Guides 100% Pratiques</span>
+    <span class="ticker-item"><i class="fas fa-check-circle"></i> Résultats Dès le 1er Jour</span>
+  </div>
+</div>
+
+<!-- ======== CATÉGORIES ======== -->
+<section id="categories">
+  <div class="section-title reveal">Nos <span class="accent">Catégories</span></div>
+  <div class="section-line"></div>
+  <p class="section-subtitle reveal">Des guides pratiques organisés par domaine pour vous aider à trouver exactement ce dont vous avez besoin.</p>
+  <div class="categories-grid">
+
+    <a href="https://ibepyuaz.mychariow.shop/prd_kmjyub5c" target="_blank" class="cat-card reveal">
+      <img class="cat-bg" src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1920&q=80" alt="Business & Marketing"/>
+      <div class="cat-overlay">
+        <div class="cat-icon">💼</div>
+        <div class="cat-title">Business & Marketing</div>
+        <div class="cat-count">Chariow • Ventes • Clients</div>
+      </div>
+      <div class="cat-arrow"><i class="fas fa-arrow-right"></i></div>
+    </a>
+
+    <a href="https://ibepyuaz.mychariow.shop/perdrelagraissesansregimemiracle" target="_blank" class="cat-card reveal">
+      <img class="cat-bg" src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1920&q=80" alt="Santé & Bien-être"/>
+      <div class="cat-overlay">
+        <div class="cat-icon">💪</div>
+        <div class="cat-title">Santé & Bien-être</div>
+        <div class="cat-count">Perte de graisse • Forme physique</div>
+      </div>
+      <div class="cat-arrow"><i class="fas fa-arrow-right"></i></div>
+    </a>
+
+    <a href="https://ibepyuaz.mychariow.shop/zeromortalite" target="_blank" class="cat-card reveal">
+      <img class="cat-bg" src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1920&q=80" alt="Agriculture & Élevage"/>
+      <div class="cat-overlay">
+        <div class="cat-icon">🌾</div>
+        <div class="cat-title">Agriculture & Élevage</div>
+        <div class="cat-count">Récoltes • Élevage • Zéro perte</div>
+      </div>
+      <div class="cat-arrow"><i class="fas fa-arrow-right"></i></div>
+    </a>
+
+    <a href="https://ibepyuaz.mychariow.shop/guide-ultime-400-recettes" target="_blank" class="cat-card reveal">
+      <img class="cat-bg" src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=1920&q=80" alt="Cuisine Béninoise"/>
+      <div class="cat-overlay">
+        <div class="cat-icon">🍽️</div>
+        <div class="cat-title">Cuisine Béninoise</div>
+        <div class="cat-count">400+ Recettes • 365 jours</div>
+      </div>
+      <div class="cat-arrow"><i class="fas fa-arrow-right"></i></div>
+    </a>
+
+    <a href="https://ibepyuaz.mychariow.shop/prd_ny7mps7b" target="_blank" class="cat-card reveal">
+      <img class="cat-bg" src="https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=1920&q=80" alt="Revenus en Ligne"/>
+      <div class="cat-overlay">
+        <div class="cat-icon">💰</div>
+        <div class="cat-title">Revenus en Ligne</div>
+        <div class="cat-count">30 jours • Méthode secrète</div>
+      </div>
+      <div class="cat-arrow"><i class="fas fa-arrow-right"></i></div>
+    </a>
+
+    <a href="https://ibepyuaz.mychariow.shop/prd_hlii3cmv" target="_blank" class="cat-card reveal">
+      <img class="cat-bg" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1920&q=80" alt="Ventes & E-commerce"/>
+      <div class="cat-overlay">
+        <div class="cat-icon">🚀</div>
+        <div class="cat-title">Ventes & E-commerce</div>
+        <div class="cat-count">Premières ventes • 7 jours</div>
+      </div>
+      <div class="cat-arrow"><i class="fas fa-arrow-right"></i></div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ======== LIVRES ======== -->
+<section id="books">
+  <div class="section-title reveal">Nos <span class="accent">8 Guides Premium</span></div>
+  <div class="section-line"></div>
+  <p class="section-subtitle reveal">Chaque guide est conçu pour vous donner des résultats concrets et rapides. Achetez, téléchargez, appliquez !</p>
+
+  <div class="filter-tabs">
+    <button class="filter-tab active">Tous</button>
+    <button class="filter-tab">Business</button>
+    <button class="filter-tab">Santé</button>
+    <button class="filter-tab">Agriculture</button>
+    <button class="filter-tab">Cuisine</button>
+    <button class="filter-tab">Revenus</button>
+  </div>
+
+  <div class="books-grid">
+
+    <!-- ===== LIVRE 1 ===== -->
+    <div class="book-card reveal">
+      <div class="book-badge badge-promo">🔥 -50% PROMO</div>
+      <div class="book-img-wrap">
+        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80" alt="Guide Chariow Clients"/>
+        <div class="book-overlay">
+          <a href="https://ibepyuaz.mychariow.shop/prd_kmjyub5c" target="_blank" class="overlay-btn overlay-btn-white">
+            <i class="fas fa-eye"></i> Voir le produit
+          </a>
+          <a href="https://ibepyuaz.mychariow.shop/prd_kmjyub5c/checkout" target="_blank" class="overlay-btn overlay-btn-gold">
+            <i class="fas fa-bolt"></i> Acheter maintenant
+          </a>
+        </div>
+      </div>
+      <div class="book-info">
+        <div class="book-category">💼 Business & Marketing</div>
+        <div class="book-title">Obtenez plus de clients grâce au guide ultime Chariow – Stratégie de conversion instantanée</div>
+        <div class="book-stars">⭐⭐⭐⭐⭐ <span class="book-reviews">(204 avis)</span></div>
+        <div class="book-footer">
+          <div class="price-block">
+            <div class="book-price-old">14,06 $ <span class="discount-tag">-50%</span></div>
+            <div class="book-price">7,03 $</div>
+          </div>
+          <a href="https://ibepyuaz.mychariow.shop/prd_kmjyub5c/checkout" target="_blank" class="btn-acheter">
+            <i class="fas fa-shopping-cart"></i> Acheter
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== LIVRE 2 ===== -->
+    <div class="book-card reveal">
+      <div class="book-badge badge-promo">💪 -50% PROMO</div>
+      <div class="book-img-wrap">
+        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80" alt="Perdre la Graisse"/>
+        <div class="book-overlay">
+          <a href="https://ibepyuaz.mychariow.shop/perdrelagraissesansregimemiracle" target="_blank" class="overlay-btn overlay-btn-white">
+            <i class="fas fa-eye"></i> Voir le produit
+          </a>
+          <a href="https://ibepyuaz.mychariow.shop/perdrelagraissesansregimemiracle/checkout" target="_blank" class="overlay-btn overlay-btn-gold">
+            <i class="fas fa-bolt"></i> Acheter maintenant
+          </a>
+        </div>
+      </div>
+      <div class="book-info">
+        <div class="book-category">💪 Santé & Bien-être</div>
+        <div class="book-title">GUIDE PRATIQUE : Perdez de la graisse sans régime miracle à partir du 30e jour</div>
+        <div class="book-stars">⭐⭐⭐⭐⭐ <span class="book-reviews">(178 avis)</span></div>
+        <div class="book-footer">
+          <div class="price-block">
+            <div class="book-price-old">5,28 $ <span class="discount-tag">-50%</span></div>
+            <div class="book-price">2,64 $</div>
+          </div>
+          <a href="https://ibepyuaz.mychariow.shop/perdrelagraissesansregimemiracle/checkout" target="_blank" class="btn-acheter">
+            <i class="fas fa-shopping-cart"></i> Acheter
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== LIVRE 3 ===== -->
+    <div class="book-card reveal">
+      <div class="book-badge badge-hot">🚀 TOP VENTE</div>
+      <div class="book-img-wrap">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" alt="Boostez vos ventes Chariow"/>
+        <div class="book-overlay">
+          <a href="https://ibepyuaz.mychariow.shop/prd_hlii3cmv" target="_blank" class="overlay-btn overlay-btn-white">
+            <i class="fas fa-eye"></i> Voir le produit
+          </a>
+          <a href="https://ibepyuaz.mychariow.shop/prd_hlii3cmv/checkout" target="_blank" class="overlay-btn overlay-btn-gold">
+            <i class="fas fa-bolt"></i> Acheter maintenant
+          </a>
+        </div>
+      </div>
+      <div class="book-info">
+        <div class="book-category">🚀 Ventes & E-commerce</div>
+        <div class="book-title">Boostez vos premières ventes sur Chariow en 7 jours – Méthodes secrètes</div>
+        <div class="book-stars">⭐⭐⭐⭐⭐ <span class="book-reviews">(263 avis)</span></div>
+        <div class="book-footer">
+          <div class="price-block">
+            <div class="book-price-old" style="visibility:hidden;">—</div>
+            <div class="book-price">14,06 $</div>
+          </div>
+          <a href="https://ibepyuaz.mychariow.shop/prd_hlii3cmv/checkout" target="_blank" class="btn-acheter">
+            <i class="fas fa-shopping-cart"></i> Acheter
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== LIVRE 4 ===== -->
+    <div class="book-card reveal">
+      <div class="book-badge badge-promo">🐄 -30% PROMO</div>
+      <div class="book-img-wrap">
+        <img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=800&q=80" alt="Zéro Mortalité Élevage"/>
+        <div class="book-overlay">
+          <a href="https://ibepyuaz.mychariow.shop/zeromortalite" target="_blank" class="overlay-btn overlay-btn-white">
+            <i class="fas fa-eye"></i> Voir le produit
+          </a>
+          <a href="https://ibepyuaz.mychariow.shop/zeromortalite/checkout" target="_blank" class="overlay-btn overlay-btn-gold">
+            <i class="fas fa-bolt"></i> Acheter maintenant
+          </a>
+        </div>
+      </div>
+      <div class="book-info">
+        <div class="book-category">🐄 Agriculture & Élevage</div>
+        <div class="book-title">Guide Ultime : Atteignez Zéro Mortalité dans Votre Élevage – Méthodes Prêtes à l'Emploi</div>
+        <div class="book-stars">⭐⭐⭐⭐⭐ <span class="book-reviews">(142 avis)</span></div>
+        <div class="book-footer">
+          <div class="price-block">
+            <div class="book-price-old">8,79 $ <span class="discount-tag">-30%</span></div>
+            <div class="book-price">6,16 $</div>
+          </div>
+          <a href="https://ibepyuaz.mychariow.shop/zeromortalite/checkout" target="_blank" class="btn-acheter">
+            <i class="fas fa-shopping-cart"></i> Acheter
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== LIVRE 5 ===== -->
+    <div class="book-card reveal">
+      <div class="book-badge badge-promo">🌱 -42% PROMO</div>
+      <div class="book-img-wrap">
+        <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=80" alt="Récoltes Payantes"/>
+        <div class="book-overlay">
+          <a href="https://ibepyuaz.mychariow.shop/prd_yw2qjw0s" target="_blank" class="overlay-btn overlay-btn-white">
+            <i class="fas fa-eye"></i> Voir le produit
+          </a>
+          <a href="https://ibepyuaz.mychariow.shop/prd_yw2qjw0s/checkout" target="_blank" class="overlay-btn overlay-btn-gold">
+            <i class="fas fa-bolt"></i> Acheter maintenant
+          </a>
+        </div>
+      </div>
+      <div class="book-info">
+        <div class="book-category">🌱 Agriculture & Récoltes</div>
+        <div class="book-title">GUIDE COMPLET POUR DES RÉCOLTES PAYANTES</div>
+        <div class="book-stars">⭐⭐⭐⭐⭐ <span class="book-reviews">(119 avis)</span></div>
+        <div class="book-footer">
+          <div class="price-block">
+            <div class="book-price-old">10,55 $ <span class="discount-tag">-42%</span></div>
+            <div class="book-price">6,16 $</div>
+          </div>
+          <a href="https://ibepyuaz.mychariow.shop/prd_yw2qjw0s/checkout" target="_blank" class="btn-acheter">
+            <i class="fas fa-shopping-cart"></i> Acheter
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== LIVRE 6 ===== -->
+    <div class="book-card reveal">
+      <div class="book-badge badge-promo">🌾 -50% PROMO</div>
+      <div class="book-img-wrap">
+        <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800&q=80" alt="Zéro Perte Récoltes"/>
+        <div class="book-overlay">
+          <a href="https://ibepyuaz.mychariow.shop/zeropertedanssesrecoltes" target="_blank" class="overlay-btn overlay-btn-white">
+            <i class="fas fa-eye"></i> Voir le produit
+          </a>
+          <a href="https://ibepyuaz.mychariow.shop/zeropertedanssesrecoltes/checkout" target="_blank" class="overlay-btn overlay-btn-gold">
+            <i class="fas fa-bolt"></i> Acheter maintenant
+          </a>
+        </div>
+      </div>
+      <div class="book-info">
+        <div class="book-category">🌾 Agriculture & Récoltes</div>
+        <div class="book-title">Guide complet pour ZÉRO PERTE dans ses récoltes</div>
+        <div class="book-stars">⭐⭐⭐⭐⭐ <span class="book-reviews">(97 avis)</span></div>
+        <div class="book-footer">
+          <div class="price-block">
+            <div class="book-price-old">10,55 $ <span class="discount-tag">-50%</span></div>
+            <div class="book-price">5,28 $</div>
+          </div>
+          <a href="https://ibepyuaz.mychariow.shop/zeropertedanssesrecoltes/checkout" target="_blank" class="btn-acheter">
+            <i class="fas fa-shopping-cart"></i> Acheter
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== LIVRE 7 ===== -->
+    <div class="book-card reveal">
+      <div class="book-badge badge-promo">🍽️ -55% PROMO</div>
+      <div class="book-img-wrap">
+        <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80" alt="400 Recettes Béninoises"/>
+        <div class="book-overlay">
+          <a href="https://ibepyuaz.mychariow.shop/guide-ultime-400-recettes" target="_blank" class="overlay-btn overlay-btn-white">
+            <i class="fas fa-eye"></i> Voir le produit
+          </a>
+          <a href="https://ibepyuaz.mychariow.shop/guide-ultime-400-recettes/checkout" target="_blank" class="overlay-btn overlay-btn-gold">
+            <i class="fas fa-bolt"></i> Acheter maintenant
+          </a>
+        </div>
+      </div>
+      <div class="book-info">
+        <div class="book-category">🍽️ Cuisine Béninoise</div>
+        <div class="book-title">PACK DE PLUS DE 400 RECETTES BÉNINOISES : Guide complet — 365 jours, 365 repas variés</div>
+        <div class="book-stars">⭐⭐⭐⭐⭐ <span class="book-reviews">(341 avis)</span></div>
+        <div class="book-footer">
+          <div class="price-block">
+            <div class="book-price-old">17,58 $ <span class="discount-tag">-55%</span></div>
+            <div class="book-price">7,91 $</div>
+          </div>
+          <a href="https://ibepyuaz.mychariow.shop/guide-ultime-400-recettes/checkout" target="_blank" class="btn-acheter">
+            <i class="fas fa-shopping-cart"></i> Acheter
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== LIVRE 8 ===== -->
+    <div class="book-card reveal">
+      <div class="book-badge badge-new">💰 NOUVEAU</div>
+      <div class="book-img-wrap">
+        <img src="https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=800&q=80" alt="30 jours revenus en ligne"/>
+        <div class="book-overlay">
+          <a href="https://ibepyuaz.mychariow.shop/prd_ny7mps7b" target="_blank" class="overlay-btn overlay-btn-white">
+            <i class="fas fa-eye"></i> Voir le produit
+          </a>
+          <a href="https://ibepyuaz.mychariow.shop/prd_ny7mps7b/checkout" target="_blank" class="overlay-btn overlay-btn-gold">
+            <i class="fas fa-bolt"></i> Acheter maintenant
+          </a>
+        </div>
+      </div>
+      <div class="book-info">
+        <div class="book-category">💰 Revenus en Ligne</div>
+        <div class="book-title">30 jours pour devenir un créateur de revenus en ligne – Découvrez la méthode secrète</div>
+        <div class="book-stars">⭐⭐⭐⭐⭐ <span class="book-reviews">(215 avis)</span></div>
+        <div class="book-footer">
+          <div class="price-block">
+            <div class="book-price-old" style="visibility:hidden;">—</div>
+            <div class="book-price">5,28 $</div>
+          </div>
+          <a href="https://ibepyuaz.mychariow.shop/prd_ny7mps7b/checkout" target="_blank" class="btn-acheter">
+            <i class="fas fa-shopping-cart"></i> Acheter
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /books-grid -->
+
+  <div style="text-align:center; margin-top:3rem;">
+    <a href="https://ibepyuaz.mychariow.shop/" target="_blank" class="btn-primary">
+      <i class="fas fa-store"></i> Voir Toute la Boutique
+    </a>
+  </div>
+</section>
+
+<!-- ======== OFFRE SPÉCIALE ======== -->
+<div class="special-offer">
+  <div style="position:relative;z-index:2;">
+    <div class="offer-badge">⏳ OFFRES LIMITÉES – Profitez-en avant qu'il soit trop tard !</div>
+    <h2 style="font-size:clamp(1.6rem,3.5vw,2.8rem);font-weight:900;margin-bottom:1rem;">
+      Jusqu'à <span style="color:var(--gold)">-55% de Réduction</span> sur nos Guides !
+    </h2>
+    <p style="color:var(--muted);max-width:620px;margin:0 auto 2rem;font-size:1rem;line-height:1.8;">
+      Business, santé, agriculture, cuisine, revenus en ligne… Des guides pratiques à prix cassés pour une durée limitée. Ne laissez pas cette opportunité vous échapper !
+    </p>
+    <div class="countdown">
+      <div class="countdown-unit">
+        <span class="countdown-number" id="cd-hours">23</span>
+        <span class="countdown-label">Heures</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-number" id="cd-mins">47</span>
+        <span class="countdown-label">Minutes</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-number" id="cd-secs">59</span>
+        <span class="countdown-label">Secondes</span>
+      </div>
+    </div>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a href="https://ibepyuaz.mychariow.shop/" target="_blank" class="btn-primary" style="font-size:1rem;">
+        <i class="fas fa-fire"></i> Voir toutes les offres
+      </a>
+      <a href="https://ibepyuaz.mychariow.shop/guide-ultime-400-recettes/checkout" target="_blank" class="btn-secondary" style="font-size:1rem;">
+        <i class="fas fa-utensils"></i> 400 Recettes à 7,91 $
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ======== AVIS CLIENTS ======== -->
+<section id="avis">
+  <div class="section-title reveal">Ce que disent nos <span class="accent">Clients</span></div>
+  <div class="section-line"></div>
+  <p class="section-subtitle reveal">Des centaines de personnes ont déjà changé leur quotidien grâce à nos guides. Voici leurs témoignages authentiques.</p>
+  <div class="reviews-grid">
+
+    <div class="review-card reveal">
+      <div class="review-header">
+        <img class="reviewer-avatar" src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200&q=80" alt="Aïcha"/>
+        <div>
+          <div class="reviewer-name">Aïcha S.</div>
+          <div class="reviewer-tag">🇧🇯 Bénin • Cliente vérifiée</div>
+        </div>
+      </div>
+      <div class="review-stars">⭐⭐⭐⭐⭐</div>
+      <p class="review-text">"Le pack de recettes béninoises est incroyable ! 400 recettes pour toute l'année, ma famille est comblée chaque jour. Un achat que je ne regrette absolument pas !"</p>
+      <div class="review-book">📖 PACK 400 Recettes Béninoises – 7,91 $</div>
+      <div class="verified"><i class="fas fa-check-circle"></i> Achat vérifié</div>
+    </div>
+
+    <div class="review-card reveal">
+      <div class="review-header">
+        <img class="reviewer-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt="Rodrigue"/>
+        <div>
+          <div class="reviewer-name">Rodrigue M.</div>
+          <div class="reviewer-tag">🇨🇩 Congo • Vendeur Chariow</div>
+        </div>
+      </div>
+      <div class="review-stars">⭐⭐⭐⭐⭐</div>
+      <p class="review-text">"Grâce au guide sur les premières ventes Chariow, j'ai fait mes 5 premières ventes en seulement 4 jours ! Les méthodes sont concrètes et vraiment efficaces. Je recommande !"</p>
+      <div class="review-book">📖 Boostez vos premières ventes Chariow – 14,06 $</div>
+      <div class="verified"><i class="fas fa-check-circle"></i> Achat vérifié</div>
+    </div>
+
+    <div class="review-card reveal">
+      <div class="review-header">
+        <img class="reviewer-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80" alt="Mariette"/>
+        <div>
+          <div class="reviewer-name">Mariette K.</div>
+          <div class="reviewer-tag">🇨🇮 Côte d'Ivoire</div>
+        </div>
+      </div>
+      <div class="review-stars">⭐⭐⭐⭐⭐</div>
+      <p class="review-text">"J'ai perdu 4 kg en 30 jours sans me priver ! Le guide est simple, bien expliqué et ça marche vraiment. Fini les régimes impossibles. Merci IbepShop !"</p>
+      <div class="review-book">📖 Perdre la Graisse sans Régime Miracle – 2,64 $</div>
+      <div class="verified"><i class="fas fa-check-circle"></i> Achat vérifié</div>
+    </div>
+
+    <div class="review-card reveal">
+      <div class="review-header">
+        <img class="reviewer-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80" alt="Barnabé"/>
+        <div>
+          <div class="reviewer-name">Barnabé A.</div>
+          <div class="reviewer-tag">🇧🇯 Bénin • Agriculteur</div>
+        </div>
+      </div>
+      <div class="review-stars">⭐⭐⭐⭐⭐</div>
+      <p class="review-text">"Le guide Zéro Mortalité m'a sauvé mon élevage ! J'avais des pertes chaque mois. Depuis que j'applique les méthodes, zéro perte depuis 3 mois. Extraordinaire !"</p>
+      <div class="review-book">📖 Zéro Mortalité dans votre Élevage – 6,16 $</div>
+      <div class="verified"><i class="fas fa-check-circle"></i> Achat vérifié</div>
+    </div>
+
+    <div class="review-card reveal">
+      <div class="review-header">
+        <img class="reviewer-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80" alt="Ibrahim"/>
+        <div>
+          <div class="reviewer-name">Ibrahim T.</div>
+          <div class="reviewer-tag">🇲🇱 Mali • Entrepreneur</div>
+        </div>
+      </div>
+      <div class="review-stars">⭐⭐⭐⭐⭐</div>
+      <p class="review-text">"En 30 jours j'ai créé ma première source de revenus en ligne. La méthode est claire, accessible même pour un débutant. J'ai déjà gagné plus que le prix du guide !"</p>
+      <div class="review-book">📖 30 jours créateur de revenus en ligne – 5,28 $</div>
+      <div class="verified"><i class="fas fa-check-circle"></i> Achat vérifié</div>
+    </div>
+
+    <div class="review-card reveal">
+      <div class="review-header">
+        <img class="reviewer-avatar" src="https://images.unsplash.com/photo-1494790108755-2616b612b601?w=200&q=80" alt="Fatou"/>
+        <div>
+          <div class="reviewer-name">Fatou D.</div>
+          <div class="reviewer-tag">🇸🇳 Sénégal • Agricultrice</div>
+        </div>
+      </div>
+      <div class="review-stars">⭐⭐⭐⭐⭐</div>
+      <p class="review-text">"Les deux guides agriculture sont complémentaires et excellents. Zéro perte dans mes récoltes depuis 2 saisons ! Mon rendement a augmenté de 40%. Vraiment du concret !"</p>
+      <div class="review-book">📖 Zéro Perte dans ses Récoltes + Récoltes Payantes</div>
+      <div class="verified"><i class="fas fa-check-circle"></i> Achat vérifié</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======== POURQUOI NOUS ======== -->
+<section id="why">
+  <div class="section-title reveal">Pourquoi Choisir <span class="accent">IbepShop</span> ?</div>
+  <div class="section-line"></div>
+  <p class="section-subtitle reveal">Nous mettons tout en œuvre pour vous offrir des guides de qualité, un service irréprochable et des résultats concrets.</p>
+  <div class="why-grid">
+    <div class="why-card reveal">
+      <div class="why-icon">⚡</div>
+      <div class="why-title">Accès Immédiat</div>
+      <p class="why-text">Payez et téléchargez votre guide en quelques secondes. Disponible 24h/24, 7j/7, depuis n'importe quel appareil.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-icon">🔒</div>
+      <div class="why-title">Paiement Sécurisé</div>
+      <p class="why-text">Transactions 100% sécurisées via la plateforme Chariow. Votre argent et vos données personnelles sont protégés.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-icon">🎯</div>
+      <div class="why-title">Résultats Concrets</div>
+      <p class="why-text">Chaque guide est conçu pour des résultats rapides et mesurables. Des méthodes testées, éprouvées et applicables dès aujourd'hui.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-icon">💰</div>
+      <div class="why-title">Prix Accessibles</div>
+      <p class="why-text">Des guides de haute valeur à partir de seulement 2,64 $. Avec nos promotions régulières, vous économisez jusqu'à 55%.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-icon">🌍</div>
+      <div class="why-title">Fait pour l'Afrique</div>
+      <p class="why-text">Nos guides sont conçus en tenant compte des réalités africaines. Du contenu local, pertinent et immédiatement applicable.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-icon">🎧</div>
+      <div class="why-title">Support Dédié</div>
+      <p class="why-text">Notre équipe est disponible pour vous accompagner avant, pendant et après votre achat. Satisfaction garantie !</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======== NEWSLETTER ======== -->
+<div class="newsletter">
+  <h2>📬 Ne Ratez Aucune Promotion !</h2>
+  <p>Inscrivez-vous gratuitement et recevez en exclusivité nos nouvelles sorties, promotions flash et guides offerts !</p>
+  <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+    <input type="email" placeholder="Votre adresse email..." required/>
+    <button type="submit">S'inscrire ✉️</button>
+  </form>
+</div>
+
+<!-- ======== FOOTER ======== -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#accueil" class="logo">📚 Ibep<span>Shop</span></a>
+      <p style="margin-top:1rem;">Votre boutique digitale de guides pratiques. Des solutions concrètes pour le business, la santé, l'agriculture, la cuisine et les revenus en ligne. Résultats garantis !</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-tiktok"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>📚 Nos Guides</h4>
+      <ul>
+        <li><a href="https://ibepyuaz.mychariow.shop/prd_kmjyub5c" target="_blank">Guide Clients Chariow</a></li>
+        <li><a href="https://ibepyuaz.mychariow.shop/perdrelagraissesansregimemiracle" target="_blank">Perdre la Graisse</a></li>
+        <li><a href="https://ibepyuaz.mychariow.shop/prd_hlii3cmv" target="_blank">Premières Ventes Chariow</a></li>
+        <li><a href="https://ibepyuaz.mychariow.shop/zeromortalite" target="_blank">Zéro Mortalité Élevage</a></li>
+        <li><a href="https://ibepyuaz.mychariow.shop/prd_yw2qjw0s" target="_blank">Récoltes Payantes</a></li>
+        <li><a href="https://ibepyuaz.mychariow.shop/zeropertedanssesrecoltes" target="_blank">Zéro Perte Récoltes</a></li>
+        <li><a href="https://ibepyuaz.mychariow.shop/guide-ultime-400-recettes" target="_blank">400 Recettes Béninoises</a></li>
+        <li><a href="https://ibepyuaz.mychariow.shop/prd_ny7mps7b" target="_blank">30 Jours Revenus en Ligne</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>🔗 Navigation</h4>
+      <ul>
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#categories">Catégories</a></li>
+        <li><a href="#books">Tous les Guides</a></li>
+        <li><a href="#avis">Avis Clients</a></li>
+        <li><a href="#why">Pourquoi Nous</a></li>
+        <li><a href="https://ibepyuaz.mychariow.shop/" target="_blank">Boutique Officielle</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>🛒 Achats Rapides</h4>
+      <ul>
+        <li><a href="https://ibepyuaz.mychariow.shop/prd_kmjyub5c/checkout" target="_blank">⚡ Acheter Guide Chariow</a></li>
+        <li><a href="https://ibepyuaz.mychariow.shop/perdrelagraissesansregimemiracle/checkout" target="_blank">⚡ Acheter Guide Santé</a></li>
+        <li><a href="https://ibepyuaz.mychariow.shop/guide-ultime-400-recettes/checkout" target="_blank">⚡ Acheter 400 Recettes</a></li>
+        <li><a href="https://ibepyuaz.mychariow.shop/zeromortalite/checkout" target="_blank">⚡ Acheter Guide Élevage</a></li>
+        <li><a href="https://ibepyuaz.mychariow.shop/prd_ny7mps7b/checkout" target="_blank">⚡ Acheter Guide Revenus</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 <a href="https://ibepyuaz.mychariow.shop/" target="_blank">IbepShop</a> – Tous droits réservés. Fait avec ❤️ pour vous aider à réussir.</p>
+  </div>
+</footer>
+
+<!-- ======== TOAST ======== -->
+<div class="toast" id="toast">✅ Merci ! Vous êtes inscrit(e) avec succès !</div>
+
+<!-- ======== BACK TO TOP ======== -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- ======== JAVASCRIPT ======== -->
+<script>
+  // === Particules ===
+  const particlesContainer = document.getElementById('particles');
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (Math.random() * 10 + 8) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    const size = (Math.random() * 4 + 2) + 'px';
+    p.style.width = p.style.height = size;
+    const colors = ['#f0c040','#7c3aed','#06b6d4','#ff8c00','#ffffff'];
+    p.style.background = colors[Math.floor(Math.random() * colors.length)];
+    particlesContainer.appendChild(p);
+  }
+
+  // === Menu hamburger ===
+  const hamburger = document.getElementById('hamburger');
+  const navLinks  = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  // === Compteurs animés ===
+  function animateCount(id, target, suffix = '', decimals = 0, duration = 2000) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    let start = 0;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) { start = target; clearInterval(timer); }
+      el.textContent = start.toFixed(decimals) + suffix;
+    }, 16);
+  }
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      animateCount('count1', 8, '+');
+      animateCount('count2', 500, '+');
+      animateCount('count3', 6, '');
+      animateCount('count4', 4.9, '', 1);
+    }, 800);
+  });
+
+  // === Reveal au scroll ===
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+
+  // === Countdown ===
+  (function startCountdown() {
+    let h = 23, m = 47, s = 59;
+    setInterval(() => {
+      s--;
+      if (s < 0) { s = 59; m--; }
+      if (m < 0) { m = 59; h--; }
+      if (h < 0) { h = 23; m = 59; s = 59; }
+      document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+      document.getElementById('cd-mins').textContent  = String(m).padStart(2,'0');
+      document.getElementById('cd-secs').textContent  = String(s).padStart(2,'0');
+    }, 1000);
+  })();
+
+  // === Filter tabs (visuel uniquement) ===
+  document.querySelectorAll('.filter-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+
+  // === Newsletter ===
+  function handleNewsletter(e) {
+    e.preventDefault();
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 4000);
+    e.target.reset();
+  }
+
+  // === Back to top ===
+  const backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    backTop.classList.toggle('visible', window.scrollY > 400);
+  });
+
+  // === Navbar scroll ===
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').style.background =
+      window.scrollY > 50 ? 'rgba(3,3,8,0.99)' : 'rgba(5,5,16,0.95)';
+  });
+</script>
+</body>
+</html>
